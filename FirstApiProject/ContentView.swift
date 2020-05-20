@@ -9,8 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //Get API Data
+    //@State private var posts: [Post] = []
+    @State private var forces: [ResponseUKForce] = []
+    
+    
+    
     var body: some View {
-        Text("Hello, World!")
+        
+
+        
+        List(forces,id: \.id) {force in
+            
+            VStack {
+            Text(force.id)
+            Text(force.name)
+            }
+        }
+        .onAppear() {
+            
+            PoliceForceData().loadForceData { force in
+                
+                self.forces = force
+                
+                
+            }//Loop through the
+            
+            
+        }//End on Appear
+        
+        
+   
+        
     }
 }
 
