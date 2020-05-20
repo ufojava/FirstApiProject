@@ -12,21 +12,47 @@ struct ContentView: View {
     
     //Get API Data
     //@State private var posts: [Post] = []
-    @State private var forces: [ResponseUKForce] = []
+  
     
     
     
     var body: some View {
         
-
+        UKForces()
         
-        List(forces,id: \.id) {force in
+        
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+
+
+//UK Forces
+struct UKForces: View {
+    
+      @State private var forces: [ResponseUKForce] = []
+    
+    var body: some View {
+        
+        List {
+        
+                ForEach(forces,id: \.id) {force in
+                    
+                    VStack(alignment: .leading) {
+                        
+                        Text("Id: \(force.id)")
+                            .foregroundColor(Color.blue)
+                        Text("Name: \(force.name)")
+                            .font(.system(size: 15))
+                    }
+                }//End of List
             
-            VStack {
-            Text(force.id)
-            Text(force.name)
-            }
-        }
+            }.padding()
         .onAppear() {
             
             PoliceForceData().loadForceData { force in
@@ -40,13 +66,12 @@ struct ContentView: View {
         }//End on Appear
         
         
-   
         
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        
+        
+        
+        
+        
+        
     }
 }
